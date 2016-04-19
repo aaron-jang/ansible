@@ -1,0 +1,24 @@
+- name: Install zsh
+  homebrew: name="{{ item }}"
+  with_items:
+    - zsh
+    - git
+
+- name: Clone oh-my-zsh repo
+  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=~/.oh-my-zsh 
+
+- name: Create a=conf folder in home directory
+  file: path=~/conf/ state=directory 
+
+- name: deploy .zshrc
+  template: src=zshrc.in dest=~/conf/zshrc 
+
+- name: remove standard zshrc
+  file: path=~/.zshrc state=absent
+
+- name: symlink zshrc
+  file: path=~/.zshrc src=~/conf/zshrc state=link
+
+- name: Set zsh as default shell
+  user: name={{ansible_user_id}} shell=/bin/zsh
+

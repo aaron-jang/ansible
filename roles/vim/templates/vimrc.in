@@ -1,0 +1,149 @@
+"###############################################################################
+" 기본
+"###############################################################################
+" Vi의 설정을 없애고, Vim의 설정을 사용함.
+set nocompatible
+" 줄의 끝, 시작, 들여쓰기에서 백스페이스를 사용하면 이전줄과 연결
+set backspace=indent,eol,start
+" 명령어 기록을 남길 갯수 지정
+set history=50
+" 화면을 깜빡이지 않음. ==> compiz의 오류음 형태를 사용
+set novisualbell
+" 오류음을 사용하지 않음.
+set noerrorbells
+set encoding=utf-8 " Vim에서 사용할 encoding
+set fileencoding=utf-8 " 현재 파일에 사용할 encoding
+" 외부 text 붙여넣기시 계단 현상 제거
+set paste
+
+"###############################################################################
+" 모양
+"###############################################################################
+" 타이틀바에 현재 편집중인 파일을 표시
+set title
+" 줄 간격
+set lsp=0
+" 커서의 위치를 표시함
+set ruler
+set number
+syntax enable
+"set hlsearch
+set ts=2
+set sw=2
+set et
+set autoindent
+set smartindent
+
+"============= Like a Source Insight ============="
+"=== Taglist ===
+" The switch of the Taglist
+nmap <F7> :TlistToggle<CR>
+let Tlist_Ctags_Cmnd = "/usr/bin/ctags"
+let Tlist_Inc_Winwidth = 0
+let Tlist_Exit_OnlyWindow = 0
+let Tlist_Auto_Open = 0
+let Tlist_Use_Left_Window = 1
+
+""""""""""""""""""""""""""""""
+"" vim-nerdtree-tabs.vim
+""""""""""""""""""""""""""""""
+nmap <F9> :NERDTreeToggle<CR>
+let NERDTreeWinPos = "right"
+let g:nerdtree_tabs_open_on_gui_startup=1     " Open NERDTree on gvim/macvim startup
+let g:nerdtree_tabs_open_on_console_startup=1 " Open NERDTree on console vim startup
+let g:nerdtree_tabs_open_on_new_tab=1         " Open NERDTree on new tab creation
+let g:nerdtree_tabs_meaningful_tab_names=1    " Unfocus NERDTree when leaving a tab for descriptive tab names
+let g:nerdtree_tabs_autoclose=1               " Close current tab if there is only one window in it and it's NERDTree
+let g:nerdtree_tabs_synchronize_view=1        " Synchronize view of all NERDTree windows (scroll and cursor position)
+" When switching into a tab, make sure that focus is on the file window, not in the NERDTree window.
+let g:nerdtree_tabs_focus_on_files=1
+
+"=== Source explorer ===
+" The switch of the Source Explorer
+nmap <F8> :SrcExplToggle<CR>
+" Map the keys below to jump from one window to another:
+nmap <C-H> <C-W>h
+nmap <C-J> <C-W>j
+nmap <C-K> <C-W>k
+nmap <C-L> <C-W>l
+let g:SrcExpl_winHeight = 8
+let g:SrcExpl_refreshTime = 100
+let g:SrcExpl_isUpdateTags = 0
+" // Set “Enter” key to jump into the exact definition context
+let g:SrcExpl_jumpKey = "<ENTER>"
+" // Set “Space” key for back from the definition context
+let g:SrcExpl_gobackKey = "<SPACE>"
+map <F3> :tnext^M
+map <F2> :tprevious^M
+"=== Source explorer ===
+let g:user_zen_settings = {
+  \  'indentation' : '  ',
+  \  'perl' : {
+  \    'aliases' : {
+  \      'req' : 'require '
+  \    },
+  \    'snippets' : {
+  \      'use' : "use strict\nuse warnings\n\n",
+  \      'warn' : "warn \"|\";",
+  \    }
+  \  }
+\}
+
+""""""""""""""""""""""""""""""
+"" folden  settings
+""""""""""""""""""""""""""""""
+set foldenable           " enable folden
+set foldmethod=syntax    " manual : Folds are created manually.
+                         " indent : Lines with equal indent form a fold.
+                         " expr   : 'foldexpr' gives the fold level of a line.
+                         " marker : Markers are used to specify folds.
+                         " syntax : Syntax highlighting items specify folds.
+                         " diff   : Fold text that is not changed.
+set foldcolumn=3         " set folden column width
+"setlocal foldlevel=100
+set foldlevel=100        " 100: means don't autofold anything (but I can still fold manually)
+set foldopen-=search     " dont open folds when I search into thm
+set foldopen-=undo       " dont open folds when I undo stuff
+
+"set foldclose=all
+" use space to folden
+
+let g:user_zen_expandabbr_key = '<c-e>'
+let g:use_zen_complete_tag = 1
+
+"###############################################################################
+"" Vunble
+"###############################################################################
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'msanders/snipmate.vim'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'wincent/Command-T'
+Plugin 'ervandew/supertab'
+Plugin 'fholgado/minibufexpl.vim'
+Plugin 'tomasr/molokai.git'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'taglist.vim'
+Plugin 'tpope/vim-pathogen'
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()
+filetype plugin indent on     " required!
+"###############################################################################
+"" Vunble End
+"###############################################################################
+
+set background=dark
+"let g:solarized_termcolors=256
+colorscheme solarized

@@ -1,0 +1,25 @@
+- name: Install vim, git
+  homebrew: name="{{ item }}"
+  with_items:
+    - vim
+    - git
+
+- name: Create conf folder in home directory
+  file: path=~/conf/ state=directory
+
+- name: Clone Vundle repo
+  git: repo=https://github.com/VundleVim/Vundle.vim.git dest=~/.vim/bundle/Vundle.vim  
+
+- name: Configure vimrc file
+  template: src=vimrc.in dest=~/conf/vimrc
+
+- name: remove Standard .vimrc
+  file: path=~/.vimrc state=absent
+
+- name: symlink vimrc
+  file: path=~/.vimrc src=~/conf/vimrc state=link
+ 
+- name: Vundle plugin install
+  shell: vim -c 'PluginInstall' -c 'qa!'
+
+

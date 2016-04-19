@@ -1,0 +1,11 @@
+- name: configure and install vim
+  hosts: local
+
+  roles:
+    - vim
+
+- name: configure and install zsh
+  hosts: local
+
+  roles:
+    - zsh
